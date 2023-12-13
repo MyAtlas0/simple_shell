@@ -28,8 +28,10 @@ void print_environment(void)
 
 
 
+
+
 /**
- * custom_getenv - Retrieve the value of an environment variable.
+ * _getenv - Retrieve the value of an environment variable.
  *
  * @name: Name of the environment variable.
  *
@@ -39,7 +41,7 @@ void print_environment(void)
  * NULL otherwise.
  */
 
-char *custom_getenv(const char *name, char **envp)
+char *_getenv(const char *name, char **envp)
 {
 	size_t name_len = strlen(name);
 	char **env;
@@ -64,7 +66,7 @@ char *custom_getenv(const char *name, char **envp)
 
 
 /**
- * custom_setenv - Set or update an environment variable.
+ * _setenv - Set or update an environment variable.
  *
  * @name: Name of the environment variable.
  *
@@ -76,7 +78,7 @@ char *custom_getenv(const char *name, char **envp)
  * Return: 0 on success, -1 on failure.
  */
 
-int custom_setenv(const char *name, const char *value, int overwrite)
+int _setenv(const char *name, const char *value, int overwrite)
 {
 	size_t name_len = strlen(name);
 	size_t value_len = strlen(value);
@@ -90,7 +92,7 @@ int custom_setenv(const char *name, const char *value, int overwrite)
 		write(fileno(stderr), "Invalid arguments\n", strlen("Invalid arguments\n"));
 		return (-1);
 	}
-	if (!overwrite && custom_getenv(name, environ) != NULL)
+	if (!overwrite && _getenv(name, environ) != NULL)
 	{
 		return (0);
 	}
@@ -119,14 +121,14 @@ int custom_setenv(const char *name, const char *value, int overwrite)
 
 
 /**
- * custom_unsetenv - Unset or remove an environment variable.
+ * _unsetenv - Unset or remove an environment variable.
  *
  * @name: Name of the environment variable to be unset.
  *
  * Return: 0 on success, -1 on failure.
  */
 
-int custom_unsetenv(const char *name)
+int _unsetenv(const char *name)
 {
 	int result = unsetenv(name);
 

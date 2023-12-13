@@ -53,9 +53,9 @@ void execute_pwd(void);
 
 extern char **environ;
 void print_environment(void);
-char *custom_getenv(const char *name, char **envp);
-int custom_setenv(const char *name, const char *value, int overwrite);
-int custom_unsetenv(const char *name);
+char *_getenv(const char *name, char **envp);
+int _setenv(const char *name, const char *value, int overwrite);
+int _unsetenv(const char *name);
 
 
 

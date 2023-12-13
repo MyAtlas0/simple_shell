@@ -110,6 +110,7 @@ void handle_other_commands(char **args)
 
 void handle_env_command(char **args)
 {
+
 	if (args[1] != NULL)
 	{
 		if (strcmp(args[1], "-i") == 0)
@@ -118,11 +119,11 @@ void handle_env_command(char **args)
 		}
 		else if (strcmp(args[1], "-u") == 0 && args[2] != NULL)
 		{
-			custom_unsetenv(args[2]);
+			_unsetenv(args[2]);
 		}
 		else if (args[2] != NULL)
 		{
-			custom_setenv(args[1], args[2], 1); /* Set or overwrite */
+			_setenv(args[1], args[2], 1); /* Set or overwrite */
 		}
 		else
 		{
