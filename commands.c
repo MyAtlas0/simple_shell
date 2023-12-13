@@ -126,7 +126,7 @@ void execute_ls(const char *args[])
 	else
 	{
 		/* Process the arguments for ls command excluding the first argument("ls") */
-		ls_command = process_arguments(ls_args, args[1]);
+		ls_command = process_arguments(args, NULL);
 	}
 
 	/* Ensure ls_command is not NULL before executing the command */
