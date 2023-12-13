@@ -1,8 +1,8 @@
-				SIMPLE_SHELL README FILE
+# Private-Projects
+My journey to learning Programming with C and other languages.
 
 
-Last Updated: 01/12/2023;
-Contributor (s): MyAtlas0, Dericko681;
+Last Updated: 03/12/2023;
+Contributor(s): MyAtlas0;
 
 
-DOCUMENTATION:

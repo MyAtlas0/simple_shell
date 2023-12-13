@@ -15,12 +15,12 @@ void print_environment(void)
 	const int stderro = fileno(stderr); /*Get file descriptor for stderr*/
 
 	/*Write the message to stderr*/
-	write(stderro, message, strlen(message));
+	write(stderro, message, _strlen(message));
 
 	/*Print the current environment variables*/
 	while (*env != NULL)
 	{
-		write(stderro, *env, strlen(*env));
+		write(stderro, *env, _strlen(*env));
 		write(stderro, "\n", 1);
 		env++;
 	}
@@ -43,7 +43,7 @@ void print_environment(void)
 
 char *_getenv(const char *name, char **envp)
 {
-	size_t name_len = strlen(name);
+	size_t name_len = _strlen(name);
 	char **env;
 
 	if (name == NULL || envp == NULL)
@@ -53,7 +53,7 @@ char *_getenv(const char *name, char **envp)
 
 	for (env = envp; *env != NULL; ++env)
 	{
-		if (strncmp(name, *env, name_len) == 0 && (*env)[name_len] == '=')
+		if (_strncmp(name, *env, name_len) == 0 && (*env)[name_len] == '=')
 		{
 			return (*env + name_len + 1);
 		}
@@ -80,8 +80,8 @@ char *_getenv(const char *name, char **envp)
 
 int _setenv(const char *name, const char *value, int overwrite)
 {
-	size_t name_len = strlen(name);
-	size_t value_len = strlen(value);
+	size_t name_len = _strlen(name);
+	size_t value_len = _strlen(value);
 	size_t entry_len = name_len + value_len + 2;
 	char *env_entry = (char *)malloc(entry_len);
 	int result = putenv(env_entry);
@@ -89,7 +89,7 @@ int _setenv(const char *name, const char *value, int overwrite)
 	if (name == NULL || value == NULL)
 	{
 		errno = EINVAL;
-		write(fileno(stderr), "Invalid arguments\n", strlen("Invalid arguments\n"));
+		write(fileno(stderr), "Invalid arguments\n", _strlen("Invalid arguments\n"));
 		return (-1);
 	}
 	if (!overwrite && _getenv(name, environ) != NULL)
@@ -135,7 +135,7 @@ int _unsetenv(const char *name)
 	if (name == NULL)
 	{
 		errno = EINVAL;
-		write(fileno(stderr), "Invalid argument\n", strlen("Invalid argument\n"));
+		write(fileno(stderr), "Invalid argument\n", _strlen("Invalid argument\n"));
 		return (-1);
 	}
 
