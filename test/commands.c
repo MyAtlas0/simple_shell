@@ -1,5 +1,16 @@
 #include "myhell.h"
 
+/**
+ * execute_command - Execute a command.
+ *
+ * @path: Path of the command to execute.
+ *
+ * @args: Arguments for the command.
+ *
+ * This function forks a child process to execute a command specified by the
+ * path using execve system call. It waits for the child process to complete
+ * and, returns the status.
+ */
 
 void execute_command(const char *path, const char *args[])
 {
@@ -14,8 +25,7 @@ void execute_command(const char *path, const char *args[])
 	}
 	else if (child_pid == 0)
 	{
-		/* Reset errno to zero to avoid printing "Success" message
-		*/
+		/* Reset errno to zero to avoid printing "Success" message */
 		if (execve(path, (char *const *)args, NULL) == -1)
 		{
 			perror("./hsh: Command not found(execute)");
@@ -35,9 +45,76 @@ void execute_command(const char *path, const char *args[])
 
 
 
+/**
+ * process_arguments - Process the command arguments.
+ *
+ * @args: Array of command arguments.
+ *
+ * @commands_args: Additional command argument, if provided.
+ *
+ * Return: Handled arguments in a newly allocated array.
+ */
+
+char **process_arguments(const char *args[], const char *commands_args)
+{
+	size_t count = 0;
+	size_t i;
+	char **handled_args;
+
+	while (args[count] != NULL)
+	{
+		count++;
+	}
+	/*Allocate memory for the array of arguments*/
+	handled_args = malloc(sizeof(char *) * (count + 2));
+	if (handled_args == NULL)
+	{
+		perror("Memory allocation failed(Allocate memory)");
+		exit(1);
+	}
+	/*Copy the arguments into the new array*/
+	for (i = 0; i < count; i++)
+	{
+		handled_args[i] = strdup(args[i]);
+		if (handled_args[i] == NULL)
+		{
+			perror("Memory allocation failed(copy argument)");
+			exit(1);
+		}
+	}
+	/*Add the additional command argument if provided*/
+	if (commands_args != NULL)
+	{
+		handled_args[count] = strdup(commands_args);
+		if (handled_args[count] == NULL)
+		{
+			perror("Memory allocation failed(additional argumnt)");
+			exit(1);
+		}
+		count++;
+	}
+	handled_args[count] = NULL;     /*Terminate the array*/
+
+	return (handled_args);
+}
+
+
+
+
+
+/**
+ * execute_ls - Execute 'ls' command with arguments.
+ *
+ * @args: Arguments array passed to the 'ls' command.
+ *
+ * This function executes the 'ls' command using execute_command function with
+ * provided arguments. If arguments are NULL or empty, it executes 'ls' without
+ * arguments. It handles the memory allocation for 'ls' command and arguments.
+ */
+
 void execute_ls(const char *args[])
 {
-	const char *ls_path = "/bin/ls";
+	const char *ls_path = "/usr/bin/ls";
 	const char *ls_args[] = {"ls", NULL};
 	char **ls_command = NULL;
 
@@ -48,7 +125,7 @@ void execute_ls(const char *args[])
 	}
 	else
 	{
-		/* Process the arguments for ls command excluding the first argument ("ls") */
+		/* Process the arguments for ls command excluding the first argument("ls") */
 		ls_command = process_arguments(ls_args, args[1]);
 	}
 
@@ -66,11 +143,18 @@ void execute_ls(const char *args[])
 
 
 
+/**
+ * execute_pwd - Execute 'pwd' command.
+ *
+ * This function executes the 'pwd' command using the execute_command function
+ * without any arguments. It calls execute_command with the path for 'pwd'
+ * command and NULL for arguments.
+ */
+
 void execute_pwd(void)
 {
-	const char *pwd_path = "/bin/pwd";
+	const char *pwd_path = "/usr/bin/pwd";
 	const char *pwd_args[] = {"pwd", NULL};
 
 	execute_command(pwd_path, pwd_args);
 }
-

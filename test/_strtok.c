@@ -1,91 +1,86 @@
 #include "myhell.h"
 
+
 /**
- * _strtok - Function to tokenize the input string.
+ * _strtok - Tokenizes the input string and splits it into separate arguments.
+ *           This function creates an array of strings by splitting the input
+ *           based on spaces, tabs, and newlines.
  *
- * @input: Represents the characters to be tokenized.
+ * @input: Input string to be tokenized.
  *
- * Return: The arguments of the string.
+ * Return: An array of strings (arguments) obtained by splitting the input.
  */
 
 char **_strtok(const char *input)
 {
 	size_t count = 0;
+	size_t word_len;
 	char **args = NULL;
-	const char *first = input;
-	const char *last = input;
-	size_t max_inputs = MAX_INPUT;
+	const char *start = input;
 
-	args = malloc(sizeof(char *) * (max_inputs + 1));
+	args = malloc(sizeof(char *) * (MAX_INPUT + 1));
 	if (args == NULL)
 	{
 		perror("Memory allocation failed(token)");
 		exit(1);
 	}
-
-	while (*last != '\0' && count < max_inputs)
+	while (*input != '\0' && count < MAX_INPUT)
 	{
-		first = skip_spaces(first);
-		last = last_input(last);
-
-		if (first != last)
+		while (*input == ' ' || *input == '\t' || *input == '\n')
 		{
-			args[count] = _strndup(first, (last - first));
-			count++;
+			input++;
+			start = input; /*Mark the beginning of a new word*/
 		}
-		first = last;
+		if (*input == '\0')
+		{
+			break;
+		}
+		while (*input != ' ' && *input != '\t' &&
+				*input != '\n' && *input != '\0')
+		{
+			input++;
+		}
+		word_len = input - start; /*Calculate the length of the word*/
+		/*Allocate memory for the word and copy it*/
+		args[count] = _strndup(start, word_len);
+		if (args[count] == NULL)
+		{
+			perror("Memory allocation failed(token)");
+			free_args(args);
+			exit(1);
+		}
+		count++;
 	}
-	args[count] = NULL;
-	return args;
+	args[count] = NULL; /* Null-terminate the args array */
+	return (args);
 }
 
 
 
 
-
-const char *last_input(const char *last)
-{
-	while (*last && !(*last == ' ' || *last == '\0'))
-	{
-		last++;
-	}
-	return last;
-}
-
-
-
-
-
-const char *skip_spaces(const char *first)
-{
-	while (*first && (*first == ' ' || *first == '\0'))
-	{
-		first++;
-	}
-	return first;
-}
-
-
-
-
+/**
+ * _strndup - Duplicate a specified number of characters from a string.
+ *
+ * @first: Pointer to the string to be duplicated.
+ * @n: Number of characters to duplicate.
+ *
+ * Return: Pointer to the newly allocated string with 'n' characters,
+ * or NULL on failure.
+ */
 
 char *_strndup(const char *first, size_t n)
 {
 	char *result;
-	size_t str_len = strlen(first);
 
-	if (n < str_len)
-	{
-		str_len = n;
-	}
-
-	result = malloc(str_len + 1);
+	/*Allocate memory for 'n' characters plus null-terminator*/
+	result = malloc(n + 1);
 	if (result == NULL)
 	{
-		return NULL;
+		perror("Memory allocation failed (_strndup)");
+		exit(1);
 	}
 
-	memcpy(result, first, str_len);
-	result[str_len] = '\0';
-	return result;
+	strncpy(result, first, n); /*Copy 'n' characters from 'first' to 'result'*/
+	result[n] = '\0'; /*Null-terminate the string*/
+	return (result);
 }

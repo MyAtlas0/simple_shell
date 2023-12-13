@@ -1,5 +1,17 @@
 #include "myhell.h"
 
+
+/**
+ * read_prompt - Read input from the user.
+ *
+ * This function reads input from the user through the input stream (stdin).
+ * It displays the prompt '$ ' if the input is interactive. It uses _getline to
+ * read the input and adjusts the string if the last character is a newline.
+ *
+ * Return: Pointer to the input string.
+ *          NULL if an error occurs or if reading fails.
+ */
+
 char *read_prompt()
 {
 	char *input = NULL;
@@ -10,12 +22,12 @@ char *read_prompt()
 	interactive = isatty(STDIN_FILENO);
 	if (interactive)
 	{
-		write_char("Rain^_^: ");
+		write_char("$ ");
 		fflush(stdout);
 	}
 
-	read = getline(&input, &buffer, stdin);
-	if(read == -1)
+	read = _getline(&input, &buffer, stdin);
+	if (read == -1)
 	{
 		free(input);
 		return (NULL);
@@ -31,7 +43,17 @@ char *read_prompt()
 
 
 
-int main()
+
+/**
+ * main - Entry point of the shell program.
+ *
+ * The main function initializes variables, reads input from the user,
+ * processes the input, and handles commands accordingly.
+ *
+ * Return: Always returns 0.
+ */
+
+int main(void)
 {
 	char *input;
 	char **args;
