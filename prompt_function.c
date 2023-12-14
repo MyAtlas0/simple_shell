@@ -33,19 +33,12 @@ void input_process(char *input)
 
 void free_args(char **args)
 {
-	int i;
+	int i = 0;
 
-	if (args == NULL)
+	while (args[i] != NULL)
 	{
-		return;
+		free(args[i]); /*Free memory allocated for each string*/
+		i++;
 	}
-
-	for (i = 0; args[i] != NULL; i++)
-	{
-		free(args[i]);
-		args[i] = NULL;
-	}
-
 	free(args);
-	args = NULL;
 }
