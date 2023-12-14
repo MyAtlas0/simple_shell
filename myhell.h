@@ -44,7 +44,7 @@ char *_strndup(const char *first, size_t n);
 char *_strncpy(char *destination, const char *source, size_t n);
 char *_strstr(char *haystack, char *needle);
 char *_strcpy(char *dest, char *src);
-
+char *_memcpy(char *dest, char *src, unsigned int n);
 
 
 /** Commands Prototype Functions, It's declarations **/
