@@ -73,7 +73,7 @@ void handle_other_commands(char **args)
 	int stderro = fileno(stderr);
 	const char *error_message;
 
-	if (args[0][0] == '/' || strncmp(args[0], "./", 2) == 0)
+	if (args[0][0] == '/' || _strncmp(args[0], "./", 2) == 0)
 	{
 		/*Check if the command contains an absolute or relative path*/
 		execute_command(args[0], (const char **)args);
@@ -91,7 +91,7 @@ void handle_other_commands(char **args)
 	else
 	{
 		/* Command not recognized; Display an error message */
-		error_message = "command not found: ";
+		error_message = "Command not found: ";
 		write(stderro, error_message, _strlen(error_message));
 		write(stderro, args[0], _strlen(args[0]));
 		write(stderro, "\n", 1);

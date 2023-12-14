@@ -28,7 +28,7 @@ void execute_command(const char *path, const char *args[])
 		/* Reset errno to zero to avoid printing "Success" message */
 		if (execve(path, (char *const *)args, NULL) == -1)
 		{
-			perror("./hsh: Command not found ");
+			perror("./hsh: Command not found(execute) ");
 			exit(2);
 		}
 	}

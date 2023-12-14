@@ -76,5 +76,7 @@ int main(void)
 		input_process(input);
 		free(input);
 	}
+	free_args(args);
+	free(input);
 	return (0);
 }

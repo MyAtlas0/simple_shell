@@ -25,6 +25,7 @@ void input_process(char *input);
 
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void expand_buffer(char **lineptr, size_t *n);
+void *_realloc(void *ptr, size_t new_size);
 
 
 
