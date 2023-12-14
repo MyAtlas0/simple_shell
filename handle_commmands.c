@@ -73,7 +73,7 @@ void handle_other_commands(char **args)
 	int stderro = fileno(stderr);
 	const char *error_message;
 
-	if (args[0][0] == '/' || _strncmp(args[0], "./", 2) == 0)
+	if (args[0][0] == '/' || _strstr(args[0], "./") == args[0])
 	{
 		/*Check if the command contains an absolute or relative path*/
 		execute_command(args[0], (const char **)args);
@@ -110,6 +110,7 @@ void handle_other_commands(char **args)
 
 void handle_env_command(char **args)
 {
+	const char *error_message;
 
 	if (args[1] != NULL)
 	{
@@ -127,7 +128,8 @@ void handle_env_command(char **args)
 		}
 		else
 		{
-			fprintf(stderr, "Invalid 'env' command format\n");
+			error_message = "Invalid 'env' command format\n";
+			write(fileno(stderr), error_message, strlen(error_message));
 		}
 	}
 	else
