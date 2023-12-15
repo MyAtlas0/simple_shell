@@ -41,7 +41,6 @@ char **_strtok(const char *input)
 			input++;
 		}
 		word_len = input - start; /*Calculate the length of the word*/
-		/*Allocate memory for the word and copy it*/
 		args[count] = _strndup(start, word_len);
 		if (args[count] == NULL)
 		{
@@ -49,7 +48,6 @@ char **_strtok(const char *input)
 			free_args(args);
 			exit(1);
 		}
-	/*	_memcpy(args[count], (char *)start, word_len);*/
 		args[count][word_len] = '\0';
 		count++;
 	}
