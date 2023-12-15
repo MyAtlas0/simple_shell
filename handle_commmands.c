@@ -124,7 +124,7 @@ void handle_env_command(char **args)
 		}
 		else if (args[2] != NULL)
 		{
-			_setenv(args[1], args[2], 1); /* Set or overwrite */
+			_setenv(args[1], args[2], 1); /*Set or overwrite*/
 		}
 		else
 		{
@@ -141,31 +141,6 @@ void handle_env_command(char **args)
 
 
 
-
-/*
-void handle_semicolon_commands(char *input)
-{
-	int i;
-	char **inputs = _strtok(input, ";");
-	char **args = _strtok(inputs[i]);
-
-	if (inputs == NULL)
-	{
-		return;
-	}
-
-	for (i = 0; inputs[i] != NULL; i++)
-	{
-		if (args == NULL || args[0] == NULL)
-		{
-			continue;
-		}
-		handle_commands(args, inputs[i]);
-		free_args(args);
-	}
-	free_args(inputs);
-}
-*/
 
 
 
