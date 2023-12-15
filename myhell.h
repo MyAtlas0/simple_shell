@@ -72,5 +72,6 @@ int _atoi(char *s);
 void handle_commands(char **args, char *input);
 void handle_env_command(char **args);
 void handle_other_commands(char **args);
-
+/*void handle_semicolon_commands(char *input);
+*/
 #endif /**  MYHELL_H  **/

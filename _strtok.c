@@ -49,6 +49,8 @@ char **_strtok(const char *input)
 			free_args(args);
 			exit(1);
 		}
+	/*	_memcpy(args[count], (char *)start, word_len);*/
+		args[count][word_len] = '\0';
 		count++;
 	}
 	args[count] = NULL; /* Null-terminate the args array */

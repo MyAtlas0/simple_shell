@@ -142,6 +142,32 @@ void handle_env_command(char **args)
 
 
 
+/*
+void handle_semicolon_commands(char *input)
+{
+	int i;
+	char **inputs = _strtok(input, ";");
+	char **args = _strtok(inputs[i]);
+
+	if (inputs == NULL)
+	{
+		return;
+	}
+
+	for (i = 0; inputs[i] != NULL; i++)
+	{
+		if (args == NULL || args[0] == NULL)
+		{
+			continue;
+		}
+		handle_commands(args, inputs[i]);
+		free_args(args);
+	}
+	free_args(inputs);
+}
+*/
+
+
 
 /**
  * _atoi - Converts a string to an integer.

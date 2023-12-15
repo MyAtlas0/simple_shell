@@ -26,7 +26,7 @@ void execute_command(const char *path, const char *args[])
 	else if (child_pid == 0)
 	{
 		/* Reset errno to zero to avoid printing "Success" message */
-		if (execve(path, (char *const *)args, NULL) == -1)
+		if (execve(path, (char *const *)args, environ) == -1)
 		{
 			perror("./hsh: Command not found(execute) ");
 			exit(2);
